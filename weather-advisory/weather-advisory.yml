@@ -1,0 +1,6 @@
+server:
+  minThreads: 32
+  maxThreads: 32
+  applicationConnectors:
+    - type: http
+      port: 9081

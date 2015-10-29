@@ -3,11 +3,13 @@ package solutions.gutta.weatheradvisory;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import solutions.gutta.weatheradvisory.health.WeatherHealthCheck;
+import solutions.gutta.weatheradvisory.resources.TaskRouterResource;
 
 public class WeatherAdvisoryApplication extends Application<WeatherAdvisoryConfiguration>{
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws Exception {
+		 new WeatherAdvisoryApplication().run(args);
 	}
 	
 	@Override
@@ -23,8 +25,11 @@ public class WeatherAdvisoryApplication extends Application<WeatherAdvisoryConfi
 	
 	@Override
 	public void run(WeatherAdvisoryConfiguration configuration, Environment environment) throws Exception {
-		// TODO Auto-generated method stub
+		final TaskRouterResource taskResource = new TaskRouterResource();
+		final WeatherHealthCheck healthCheck = new WeatherHealthCheck();
 		
+		environment.jersey().register(taskResource);
+		environment.healthChecks().register("WeatherAdvisory", healthCheck);
 	}
 
 }
