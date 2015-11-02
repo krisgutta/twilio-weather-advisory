@@ -1,4 +1,4 @@
-package solutions.gutta.weatheradvisory.api.taskrouter;
+package solutions.gutta.weatheradvisory.api;
 
 public abstract class Instruction {
 	
