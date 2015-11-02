@@ -53,8 +53,17 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>jcenter</id>
+      <url>http://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
   <properties>
     <dropwizard.version>0.8.2</dropwizard.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <dropwizard-xml-version>0.9.0-30</dropwizard-xml-version>
   </properties>
 </project>
 
