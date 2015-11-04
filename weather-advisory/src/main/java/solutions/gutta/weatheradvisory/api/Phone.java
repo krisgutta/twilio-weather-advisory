@@ -69,14 +69,24 @@ public class Phone {
 	}
 
 	public void subscribe(String message) {
-		if ("voice,sms".equalsIgnoreCase(message)) {
+		if (message.toLowerCase().indexOf("voice") >= 0 && message.toLowerCase().indexOf("sms") >= 0) {
 			this.subscription = VOICE_AND_SMS;
-		} else if (("sms").equalsIgnoreCase(message)) {
+		} else if (message.toLowerCase().indexOf("sms") >= 0) {
 			this.subscription = SMS;
 		} else {
 			this.subscription = VOICE;
 		}
- 	}
+		
+		
+//		if ("voice,sms".equalsIgnoreCase(message)) {
+//			this.subscription = VOICE_AND_SMS;
+//		} else if (("sms").equalsIgnoreCase(message)) {
+//			this.subscription = SMS;
+//		} else {
+//			this.subscription = VOICE;
+//		}
+
+	}
 
 	public boolean canSendVoice() {
 		return subscription == VOICE || subscription == VOICE_AND_SMS;

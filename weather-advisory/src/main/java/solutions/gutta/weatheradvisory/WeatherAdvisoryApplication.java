@@ -69,7 +69,9 @@ public class WeatherAdvisoryApplication extends Application<WeatherAdvisoryConfi
 		
 		environment.healthChecks().register("WeatherAdvisory", healthCheck);
 		
-		new WorkerAvailabilityUpdater(60).start();
+		WorkerAvailabilityUpdater.getInstance().start();
+		
+		WeatherPoller.getInstance().start();
 		
 	}
 

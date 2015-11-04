@@ -11,6 +11,8 @@ import com.twilio.sdk.resource.list.taskrouter.WorkerList;
 import com.twilio.sdk.resource.list.taskrouter.WorkspaceList;
 
 public class WorkerAvailabilityUpdater extends Thread {
+	private final static WorkerAvailabilityUpdater instance = new WorkerAvailabilityUpdater();
+	
 	private long sleepTime = TimeUnit.SECONDS.toMillis(60);
 	
 	private final Object waitObj = new Object();
@@ -23,7 +25,7 @@ public class WorkerAvailabilityUpdater extends Thread {
 	
 	TwilioTaskRouterClient client; 
 	
-	public WorkerAvailabilityUpdater(int sleepTime) {
+	private WorkerAvailabilityUpdater() {
 		setName("WorkerAvailabilityUpdater");
 		
 		this.sleepTime = TimeUnit.SECONDS.toMillis(sleepTime);
@@ -53,6 +55,10 @@ public class WorkerAvailabilityUpdater extends Thread {
 		}
 		
 		System.out.println("Idle Activity sid = " + idleActivitySid);
+	}
+	
+	public static WorkerAvailabilityUpdater getInstance() {
+		return instance;
 	}
 	
 	@Override
@@ -90,11 +96,14 @@ public class WorkerAvailabilityUpdater extends Thread {
 		}
 	}
 	
-	void shutdown() {
-		shutdown = true;
-		
+	void wakeup() {
 		synchronized(waitObj) {
 			waitObj.notifyAll();
 		}
+	}
+	
+	void shutdown() {
+		shutdown = true;
+		wakeup();
 	}
 }

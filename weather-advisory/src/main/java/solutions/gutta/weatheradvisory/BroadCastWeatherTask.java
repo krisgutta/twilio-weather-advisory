@@ -52,6 +52,9 @@ public class BroadCastWeatherTask implements Runnable {
 				sms(phones.get(i).getFrom(), phones.get(i).getNumber(), sms);
 			}
 		}
+		
+		//Let's wake up the ActivityUpdater
+		WorkerAvailabilityUpdater.getInstance().wakeup();
 	}
 
 	void call(String from, String to) {

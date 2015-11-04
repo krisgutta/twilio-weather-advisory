@@ -112,21 +112,28 @@ public class TwimlResource {
 		map.put("Body", body);
 		
 		System.out.println(map);
+		
+		//final String message = body.toLowerCase().trim();
 
-		//Let's validate to make sure the body has correct sms messages
-		if (!("voice").equalsIgnoreCase(body) && 
-			!("voice,sms").equalsIgnoreCase(body) &&
-			!("sms,voice").equalsIgnoreCase(body) &&
-			!("sms").equalsIgnoreCase(body) &&
-			!("remove").equalsIgnoreCase(body)) {
-			
-			//usage(fromNumber, toNumber);
-			
-			return "SMS either 'voice', 'sms', 'voice,sms' or 'remove' keywords.";
+		if ((body == null || body.isEmpty()) || (body.toLowerCase().indexOf("sms") < 0 && body.toLowerCase().indexOf("voice") < 0 && body.toLowerCase().indexOf("remove") < 0)) {
+			return "Please text either 'voice', 'sms', 'voice,sms' or 'remove' keywords.";
 		}
 		
+//		//Let's validate to make sure the body has correct sms messages
+//		if (!("voice").equalsIgnoreCase(body.trim()) && 
+//			!("voice,sms").equalsIgnoreCase(body.trim()) &&
+//			!("sms,voice").equalsIgnoreCase(body.trim()) &&
+//			!("sms").equalsIgnoreCase(body.trim()) &&
+//			!("remove").equalsIgnoreCase(body.trim())) {
+//			
+//			//usage(fromNumber, toNumber);
+//			
+//			return "SMS either 'voice', 'sms', 'voice,sms' or 'remove' keywords.";
+//		}
+		
 		//If unsubscribe, remove the number from mapping
-		if (("remove").equalsIgnoreCase(body)) {
+		//if (("remove").equalsIgnoreCase(body)) {
+		if (body.toLowerCase().indexOf("remove") >= 0) {
 			final Phone phone = ZipcodeToPhone.ref.remove(zipcode, fromNumber);
 			
 			if (phone == null) {
