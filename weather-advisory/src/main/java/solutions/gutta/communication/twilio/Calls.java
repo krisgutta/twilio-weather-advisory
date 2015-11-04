@@ -58,13 +58,16 @@ public class Calls {
 		return this;
 	}	
 	
-	public String launch(final TwilioRestClient client) throws Exception {		
-		final Call call = client.getAccount().getCallFactory().create(params);
-		
-		if (call != null) {
-			return call.getSid();
+	public String launch(final TwilioRestClient client) {
+		try {
+			final Call call = client.getAccount().getCallFactory().create(params);
+			
+			if (call != null) {
+				return call.getSid();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
 		return null;
 	}
 }
